@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "style.h"
@@ -27,7 +27,7 @@ FlatCheckbox::FlatCheckbox(QWidget *parent, const QString &text, bool checked, c
 	connect(this, SIGNAL(stateChanged(int, ButtonStateChangeSource)), this, SLOT(onStateChange(int, ButtonStateChangeSource)));
 	setCursor(_st.cursor);
 	int32 w = _st.width, h = _st.height;
-	if (w <= 0) w = _st.textLeft + _st.font->m.width(_text) + 1;
+    if (w <= 0) w = _st.textLeft + _st.font->m.width(_text) + 2;
 	if (h <= 0) h = qMax(_st.font->height, _st.imageRect.pxHeight());
 	resize(QSize(w, h));
 }
@@ -87,7 +87,7 @@ void FlatCheckbox::paintEvent(QPaintEvent *e) {
 	tRect.setTop(_st.textTop);
 	tRect.setLeft(_st.textLeft);
 //    p.drawText(_st.textLeft, _st.textTop + _st.font->ascent, _text);
-	p.drawText(tRect, _text, QTextOption(style::al_topleft));
+    p.drawText(tRect, _text, QTextOption(style::al_topleft));
 
 	if (_state & StateDisabled) {
 		QRect sRect(_checked ? _st.chkDisImageRect : _st.disImageRect);

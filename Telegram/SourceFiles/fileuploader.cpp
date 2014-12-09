@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "fileuploader.h"
@@ -38,8 +38,7 @@ void FileUploader::uploadMedia(MsgId msgId, const ReadyLocalMedia &media) {
 		}
 		document->status = FileUploading;
 		if (!media.file.isEmpty()) {
-			document->fileName = media.file;
-			document->modDate = QFileInfo(media.file).lastModified();
+			document->location = FileLocation(mtpc_storage_filePartial, media.file);
 		}
 	}
 	queue.insert(msgId, File(media));
@@ -75,7 +74,7 @@ void FileUploader::currentFailed() {
 
 void FileUploader::killSessions() {
 	for (int i = 0; i < MTPUploadSessionsCount; ++i) {
-		MTP::killSession(MTP::upl[i]);
+		MTP::stopSession(MTP::upl[i]);
 	}
 }
 
@@ -204,7 +203,7 @@ void FileUploader::clear() {
 	dcMap.clear();
 	sentSize = 0;
 	for (int32 i = 0; i < MTPUploadSessionsCount; ++i) {
-		MTP::killSession(MTP::upl[i]);
+		MTP::stopSession(MTP::upl[i]);
 		sentSizes[i] = 0;
 	}
 	killSessionsTimer.stop();

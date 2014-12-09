@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "mtpDC.h"
@@ -446,6 +446,7 @@ void mtpUpdateDcOptions(const QVector<MTPDcOption> &options) {
 
 MTProtoConfigLoader::MTProtoConfigLoader() : _enumCurrent(0), _enumRequest(0) {
 	connect(&_enumDCTimer, SIGNAL(timeout()), this, SLOT(enumDC()));
+	connect(this, SIGNAL(killCurrentSession(qint32,qint32)), this, SLOT(onKillCurrentSession(qint32,qint32)), Qt::QueuedConnection);
 }
 
 void MTProtoConfigLoader::load() {
@@ -457,10 +458,24 @@ void MTProtoConfigLoader::load() {
 	_enumDCTimer.start(MTPEnumDCTimeout);
 }
 
+void MTProtoConfigLoader::onKillCurrentSession(qint32 request, qint32 current) {
+	if (request == _enumRequest && current == _enumCurrent) {
+		if (_enumRequest) {
+			MTP::cancel(_enumRequest);
+			_enumRequest = 0;
+		}
+		if (_enumCurrent) {
+			MTP::killSession(MTP::cfg + _enumCurrent);
+			_enumCurrent = 0;
+		}
+	}
+}
+
 void MTProtoConfigLoader::done() {
 	_enumDCTimer.stop();
-	if (_enumRequest) MTP::cancel(_enumRequest);
-	if (_enumCurrent) MTP::killSession(MTP::cfg + _enumCurrent);
+	if (_enumRequest || _enumCurrent) {
+		emit killCurrentSession(_enumRequest, _enumCurrent);
+	}
 	emit loaded();
 }
 

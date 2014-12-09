@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "style.h"
@@ -711,7 +711,7 @@ void HistoryList::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 			_menu->addAction(lang(lng_context_forward_selected), historyWidget, SLOT(onForwardSelected()));
 			_menu->addAction(lang(lng_context_delete_selected), historyWidget, SLOT(onDeleteSelected()));
 			_menu->addAction(lang(lng_context_clear_selection), historyWidget, SLOT(onClearSelected()));
-		} else {
+		} else if (item) {
 			if (!_menu) _menu = new ContextMenu(this);
 			if (isUponSelected != -2) {
 				if (canForward) {
@@ -723,6 +723,12 @@ void HistoryList::showContextMenu(QContextMenuEvent *e, bool showFromTouch) {
 				}
 			}
 			_menu->addAction(lang(lng_context_select_msg), historyWidget, SLOT(selectMessage()))->setEnabled(true);
+		} else {
+			if (App::mousedItem() && App::mousedItem()->itemType() == HistoryItem::MsgType) {
+				if (!_menu) _menu = new ContextMenu(this);
+				_menu->addAction(lang(lng_context_select_msg), historyWidget, SLOT(selectMessage()))->setEnabled(true);
+				item = App::mousedItem();
+			}
 		}
 		App::contextItem(item);
 	}

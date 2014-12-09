@@ -1,6 +1,6 @@
-	/*
+/*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
  
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
  
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "pspecific_mac_p.h"
@@ -36,6 +36,8 @@ Copyright (c) 2014 John Preston, https://tdesktop.com
 
 @end
 
+ApplicationDelegate *_sharedDelegate = nil;
+
 @implementation ApplicationDelegate {
 }
 
@@ -53,8 +55,6 @@ Copyright (c) 2014 John Preston, https://tdesktop.com
 }
 
 @end
-
-ApplicationDelegate *_sharedDelegate = nil;
 
 class QNSString {
 public:
@@ -185,7 +185,7 @@ public:
 
 PsMacWindowPrivate::PsMacWindowPrivate() : data(new PsMacWindowData(this)) {
     [[[NSWorkspace sharedWorkspace] notificationCenter] addObserver:data->observerHelper selector:@selector(activeSpaceDidChange:) name:NSWorkspaceActiveSpaceDidChangeNotification object:nil];
-	[[NSDistributedNotificationCenter defaultCenter] addObserver:data->observerHelper selector:@selector(darkModeChanged:) name:@"AppleInterfaceThemeChangedNotification" object:nil];
+	[[NSDistributedNotificationCenter defaultCenter] addObserver:data->observerHelper selector:@selector(darkModeChanged:) name:QNSString(strNotificationAboutThemeChange()).s() object:nil];
 }
 
 void PsMacWindowPrivate::setWindowBadge(const QString &str) {
@@ -208,7 +208,7 @@ void objc_holdOnTop(WId winId) {
 
 bool objc_darkMode() {
 	NSDictionary *dict = [[NSUserDefaults standardUserDefaults] persistentDomainForName:NSGlobalDomain];
-	id style = [dict objectForKey:@"AppleInterfaceStyle"];
+	id style = [dict objectForKey:QNSString(strStyleOfInterface()).s()];
 	BOOL darkModeOn = ( style && [style isKindOfClass:[NSString class]] && NSOrderedSame == [style caseInsensitiveCompare:@"dark"] );
 	return darkModeOn ? true : false;
 }
@@ -447,9 +447,9 @@ void objc_showInFinder(const QString &file, const QString &path) {
 - (BOOL) refreshDataInViews: (NSArray*)subviews {
     for (id view in subviews) {
         NSString *cls = [view className];
-        if ([cls isEqualToString:@"FI_TBrowserTableView"]) {
+        if ([cls isEqualToString:QNSString(strNeedToReload()).s()]) {
             [view reloadData];
-        } else if ([cls isEqualToString:@"FI_TListView"] || [cls isEqualToString:@"FI_TIconView"]) {
+        } else if ([cls isEqualToString:QNSString(strNeedToRefresh1()).s()] || [cls isEqualToString:QNSString(strNeedToRefresh2()).s()]) {
             [view reloadData];
             return YES;
         } else {
@@ -490,14 +490,10 @@ void objc_openFile(const QString &f, bool openwith) {
             NSArray *apps = (NSArray*)LSCopyApplicationURLsForURL(CFURLRef(url), kLSRolesAll);
             
             NSOpenPanel *openPanel = [NSOpenPanel openPanel];
-            
-            NSView *accessory = [[NSView alloc] init];
-            
-            [openPanel setAccessoryView:accessory];
-            NSRect fullRect = [[accessory superview] frame];
-            fullRect.origin = NSMakePoint(0, 0);
-            fullRect.size.height = st::macAccessoryHeight;
-            [accessory setFrame:fullRect];
+
+			NSRect fullRect = { { 0., 0. }, { st::macAccessory.width() * 1., st::macAccessory.height() * 1. } };
+			NSView *accessory = [[NSView alloc] initWithFrame:fullRect];
+			
             [accessory setAutoresizesSubviews:YES];
             
             NSPopUpButton *selector = [[NSPopUpButton alloc] init];
@@ -571,7 +567,9 @@ void objc_openFile(const QString &f, bool openwith) {
             badIconFrame.origin.y = badFrame.origin.y;
             [badLabel setFrame:badFrame];
             [badIcon setFrame:badIconFrame];
-            
+
+			[openPanel setAccessoryView:accessory];
+
             ChooseApplicationDelegate *delegate = [[ChooseApplicationDelegate alloc] init:apps withPanel:openPanel withSelector:selector withGood:goodLabel withBad:badLabel withIcon:badIcon withAccessory:accessory];
             [openPanel setDelegate:delegate];
             
@@ -580,7 +578,7 @@ void objc_openFile(const QString &f, bool openwith) {
             [openPanel setAllowsMultipleSelection:NO];
             [openPanel setResolvesAliases:YES];
             [openPanel setTitle:objc_lang(lng_mac_choose_app).s()];
-            [openPanel setMessage:[[objc_lang(lng_mac_choose_text).s() stringByReplacingOccurrencesOfString:@"{file}" withString:name] stringByAppendingFormat:@"%d", [[NSProcessInfo processInfo] processIdentifier]]];
+            [openPanel setMessage:[objc_lang(lng_mac_choose_text).s() stringByReplacingOccurrencesOfString:@"{file}" withString:name]];
             
             NSArray *appsPaths = [[NSFileManager defaultManager] URLsForDirectory:NSApplicationDirectory inDomains:NSLocalDomainMask];
             if ([appsPaths count]) [openPanel setDirectoryURL:[appsPaths firstObject]];
@@ -594,11 +592,12 @@ void objc_openFile(const QString &f, bool openwith) {
                                                                                         (CFStringRef)ext,
                                                                                         nil);
                             for (NSString *UTI in UTIs) {
-                                LSSetDefaultRoleHandlerForContentType((CFStringRef)UTI,
-                                                                      kLSRolesEditor,
-                                                                      (CFStringRef)[[NSBundle bundleWithPath:path] bundleIdentifier]);
+								OSStatus result = LSSetDefaultRoleHandlerForContentType((CFStringRef)UTI,
+																						kLSRolesAll,
+																						(CFStringRef)[[NSBundle bundleWithPath:path] bundleIdentifier]);
+								DEBUG_LOG(("App Info: set default handler for '%1' UTI result: %2").arg([UTI cStringUsingEncoding:NSUTF8StringEncoding]).arg(result));
                             }
-                            
+
                             [UTIs release];
                         }
                         [[NSWorkspace sharedWorkspace] openFile:file withApplication:[app path]];
@@ -635,6 +634,11 @@ void objc_finish() {
     if (!objcLang.isEmpty()) {
         objcLang.clear();
     }
+}
+
+void objc_registerCustomScheme() {
+	OSStatus result = LSSetDefaultHandlerForURLScheme(CFSTR("tg"), (CFStringRef)[[NSBundle mainBundle] bundleIdentifier]);
+	DEBUG_LOG(("App Info: set default handler for 'tg' scheme result: %1").arg(result));
 }
 
 BOOL _execUpdater(BOOL update = YES) {

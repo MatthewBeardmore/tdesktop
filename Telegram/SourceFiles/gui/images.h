@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -203,3 +203,59 @@ public:
 void clearStorageImages();
 void clearAllImages();
 int64 imageCacheSize();
+
+struct FileLocation {
+	FileLocation(mtpTypeId type, const QString &name, const QDateTime &modified, qint32 size) : type(type), name(name), modified(modified), size(size) {
+	}
+	FileLocation(mtpTypeId type, const QString &name) : type(type), name(name) {
+		QFileInfo f(name);
+		if (f.exists()) {
+			qint64 s = f.size();
+			if (s > INT_MAX) {
+				this->name = QString();
+				size = 0;
+				type = mtpc_storage_fileUnknown;
+			} else {
+				modified = f.lastModified();
+				size = qint32(s);
+			}
+		} else {
+			this->name = QString();
+			size = 0;
+			type = mtpc_storage_fileUnknown;
+		}
+	}
+	FileLocation() : size(0) {
+	}
+	bool check() const {
+		if (name.isEmpty()) return false;
+		QFileInfo f(name);
+		if (!f.exists()) return false;
+
+		quint64 s = f.size();
+		if (s > INT_MAX) return false;
+
+		return (f.lastModified() == modified) && (qint32(s) == size);
+	}
+	mtpTypeId type;
+	QString name;
+	QDateTime modified;
+	qint32 size;
+};
+inline bool operator==(const FileLocation &a, const FileLocation &b) {
+	return a.type == b.type && a.name == b.name && a.modified == b.modified && a.size == b.size;
+}
+inline bool operator!=(const FileLocation &a, const FileLocation &b) {
+	return !(a == b);
+}
+
+typedef QPair<uint64, uint64> MediaKey;
+inline uint64 mediaMix32To64(mtpTypeId a, int32 b) {
+	return (uint64(*reinterpret_cast<uint32*>(&a)) << 32) | uint64(*reinterpret_cast<uint32*>(&b));
+}
+inline MediaKey mediaKey(mtpTypeId type, int32 dc, const int64 &id) {
+	return MediaKey(mediaMix32To64(type, dc), id);
+}
+inline StorageKey mediaKey(const MTPDfileLocation &location) {
+	return storageKey(location.vdc_id.v, location.vvolume_id.v, location.vlocal_id.v);
+}

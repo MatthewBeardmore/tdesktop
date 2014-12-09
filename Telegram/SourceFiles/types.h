@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -341,3 +341,12 @@ typedef enum {
 	HitTestLeft,
 	HitTestTopLeft,
 } HitTestType;
+
+inline QString strMakeFromLetters(const uint32 *letters, int32 len) {
+	QString result;
+	result.reserve(len);
+	for (int32 i = 0; i < len; ++i) {
+		result.push_back(QChar((((letters[i] << 16) & 0xFF) >> 8) | (letters[i] & 0xFF)));
+	}
+	return result;
+}

@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -30,15 +30,20 @@ namespace _local_inner {
 
 		void writeMap(bool fast);
 		void writingMap();
+		void writeLocations(bool fast);
+		void writingLocations();
 		void finish();
 
 	public slots:
 
 		void mapWriteTimeout();
+		void locationsWriteTimeout();
 
 	private:
 
 		QTimer _mapWriteTimer;
+		QTimer _locationsWriteTimer;
+
 	};
 
 }
@@ -86,12 +91,16 @@ namespace Local {
 		ReadMapPassNeeded = 2,
 	};
 	ReadMapState readMap(const QByteArray &pass);
+	int32 oldMapVersion();
 
 	void writeDraft(const PeerId &peer, const QString &text);
 	QString readDraft(const PeerId &peer);
 	void writeDraftPositions(const PeerId &peer, const MessageCursor &cur);
 	MessageCursor readDraftPositions(const PeerId &peer);
 	bool hasDraftPositions(const PeerId &peer);
+
+	void writeFileLocation(const StorageKey &location, const FileLocation &local);
+	FileLocation readFileLocation(const StorageKey &location, bool check = true);
 
 	void writeImage(const StorageKey &location, const ImagePtr &img);
 	void writeImage(const StorageKey &location, const StorageImageSaved &jpeg, bool overwrite = true);

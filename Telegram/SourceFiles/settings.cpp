@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "pspecific.h"
@@ -23,9 +23,10 @@ bool gTestMode = false;
 bool gDebug = false;
 bool gManyInstance = false;
 QString gKeyFile;
-QString gWorkingDir, gExeDir;
+QString gWorkingDir, gExeDir, gExeName;
 
 QStringList gSendPaths;
+QString gStartUrl;
 
 QString gDialogLastPath, gDialogHelperPath; // optimize QFileDialog
 
@@ -42,7 +43,7 @@ DBIWorkMode gWorkMode = dbiwmWindowAndTray;
 DBIConnectionType gConnectionType = dbictAuto;
 ConnectionProxy gConnectionProxy;
 bool gSeenTrayTooltip = false;
-bool gRestartingUpdate = false, gRestarting = false;
+bool gRestartingUpdate = false, gRestarting = false, gWriteProtected = false;
 int32 gLastUpdateCheck = 0;
 bool gNoStartUpdate = false;
 bool gStartToSettings = false;
@@ -96,6 +97,8 @@ QUrl gUpdateURL = QUrl(qsl("http://tdesktop.com/linux/tupdates/current"));
 #error Unknown platform
 #endif
 
+bool gContactsReceived = false;
+
 void settingsParseArgs(int argc, char *argv[]) {
 	if (cPlatform() == dbipMac) {
 		gCustomNotifies = false;
@@ -104,6 +107,7 @@ void settingsParseArgs(int argc, char *argv[]) {
 	}
     memset_rand(&gInstance, sizeof(gInstance));
 	gExeDir = psCurrentExeDirectory(argc, argv);
+	gExeName = psCurrentExeName(argc, argv);
 	for (int32 i = 0; i < argc; ++i) {
 		if (string("-release") == argv[i]) {
 			gTestMode = false;
@@ -125,6 +129,13 @@ void settingsParseArgs(int argc, char *argv[]) {
 			for (++i; i < argc; ++i) {
 				gSendPaths.push_back(QString::fromLocal8Bit(argv[i]));
 			}
+		} else if (string("-workdir") == argv[i] && i + 1 < argc) {
+			QString dir = QString::fromLocal8Bit(argv[++i]);
+			if (QDir().exists(dir)) {
+				gWorkingDir = dir;
+			}
+		} else if (string("--") == argv[i] && i + 1 < argc) {
+			gStartUrl = QString::fromLocal8Bit(argv[++i]);
 		}
 	}
 }

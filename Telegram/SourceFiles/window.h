@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
@@ -172,6 +172,7 @@ public:
 	void showLayer(LayeredWidget *w);
 	void replaceLayer(LayeredWidget *w);
 	void hideLayer();
+	bool hideInnerLayer();
 
 	bool layerShown();
 
@@ -240,6 +241,7 @@ public slots:
 	void notifyFire();
 	void updateTrayMenu(bool force = false);
 
+	void onShowAddContact();
 	void onShowNewGroup();
 	void onLogout();
 	void onLogoutSure();
@@ -259,7 +261,7 @@ private:
 
 	void placeSmallCounter(QImage &img, int size, int count, style::color bg, const QPoint &shift, style::color color);
 	QImage iconWithCounter(int size, int count, style::color bg, bool smallIcon);
-	QImage icon16, icon32, icon64;
+	QImage icon16, icon32, icon64, iconbig16, iconbig32, iconbig64;
 
 	QWidget *centralwidget;
 

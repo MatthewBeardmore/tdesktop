@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "style.h"
@@ -336,6 +336,9 @@ _connecting(0), _clearManager(0), dragging(false), _inactivePress(false), _media
 	icon16 = icon256.scaledToWidth(16, Qt::SmoothTransformation);
 	icon32 = icon256.scaledToWidth(32, Qt::SmoothTransformation);
 	icon64 = icon256.scaledToWidth(64, Qt::SmoothTransformation);
+	iconbig16 = iconbig256.scaledToWidth(16, Qt::SmoothTransformation);
+	iconbig32 = iconbig256.scaledToWidth(32, Qt::SmoothTransformation);
+	iconbig64 = iconbig256.scaledToWidth(64, Qt::SmoothTransformation);
 
 	if (objectName().isEmpty()) {
 		setObjectName(qsl("MainWindow"));
@@ -434,6 +437,7 @@ void Window::clearWidgets() {
 }
 
 void Window::setupIntro(bool anim) {
+	cSetContactsReceived(false);
 	if (intro && (intro->animating() || intro->isVisible()) && !main) return;
 
 	QPixmap bg = myGrab(this, QRect(0, st::titleHeight, width(), height() - st::titleHeight));
@@ -636,6 +640,13 @@ void Window::hideLayer() {
 	}
 }
 
+bool Window::hideInnerLayer() {
+	if (layerBG) {
+		return layerBG->onInnerClose();
+	}
+	return true;
+}
+
 bool Window::layerShown() {
 	return !!layerBG || !!_topWidget;
 }
@@ -723,6 +734,16 @@ QRect Window::iconRect() const {
 bool Window::eventFilter(QObject *obj, QEvent *evt) {
 	if (obj == App::app() && (evt->type() == QEvent::ApplicationActivate)) {
         QTimer::singleShot(1, this, SLOT(checkHistoryActivation()));
+	} else if (obj == App::app() && (evt->type() == QEvent::FileOpen)) {
+		QString url = static_cast<QFileOpenEvent*>(evt)->url().toEncoded();
+		if (!url.trimmed().midRef(0, 5).compare(qsl("tg://"), Qt::CaseInsensitive)) {
+			cSetStartUrl(url);
+			if (!cStartUrl().isEmpty() && App::main() && App::self()) {
+				App::main()->openLocalUrl(cStartUrl());
+				cSetStartUrl(QString());
+			}
+		}
+		activate();
 	} else if (obj == this && evt->type() == QEvent::WindowStateChange) {
 		Qt::WindowState state = (windowState() & Qt::WindowMinimized) ? Qt::WindowMinimized : ((windowState() & Qt::WindowMaximized) ? Qt::WindowMaximized : ((windowState() & Qt::WindowFullScreen) ? Qt::WindowFullScreen : Qt::WindowNoState));
 		psStateChanged(state);
@@ -808,6 +829,12 @@ void Window::updateTrayMenu(bool force) {
 		trayIcon->setContextMenu((active || cPlatform() != dbipMac) ? trayIconMenu : 0);
 	}
 #endif
+}
+
+void Window::onShowAddContact() {
+	if (isHidden()) showFromTray();
+
+	if (main) main->showAddContact();
 }
 
 void Window::onShowNewGroup() {
@@ -1284,7 +1311,7 @@ void Window::notifyActivateAll() {
 }
 
 QImage Window::iconLarge() const {
-	return icon256;
+	return iconbig256;
 }
 
 void Window::placeSmallCounter(QImage &img, int size, int count, style::color bg, const QPoint &shift, style::color color) {
@@ -1375,7 +1402,7 @@ QImage Window::iconWithCounter(int size, int count, style::color bg, bool smallI
 		if (size != 16 && size != 32) size = 64;
 	}
 
-	QImage img((size == 16) ? icon16 : (size == 32 ? icon32 : icon64));
+	QImage img(smallIcon ? ((size == 16) ? iconbig16 : (size == 32 ? iconbig32 : iconbig64)) : ((size == 16) ? icon16 : (size == 32 ? icon32 : icon64)));
 	if (!count) return img;
 
 	if (smallIcon) {

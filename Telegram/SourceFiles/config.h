@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
 
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,17 +13,17 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
 
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
-static const int32 AppVersion = 6014;
-static const wchar_t *AppVersionStr = L"0.6.14";
+static const int32 AppVersion = 6017;
+static const wchar_t *AppVersionStr = L"0.6.17";
 
 static const wchar_t *AppNameOld = L"Telegram Win (Unofficial)";
 static const wchar_t *AppName = L"Telegram Desktop";
 
-static const wchar_t *AppId = L"{53F49750-6209-4FBF-9CA8-7A333C87D1ED}";
+static const wchar_t *AppId = L"{53F49750-6209-4FBF-9CA8-7A333C87D1ED}"; // used in updater.cpp and Setup.iss for Windows
 static const wchar_t *AppFile = L"Telegram";
 
 #include "settings.h"
@@ -146,15 +146,15 @@ struct BuiltInDc {
 };
 
 static const BuiltInDc _builtInDcs[] = {
-		{ 1, "173.240.5.1", 443 },
-		{ 2, "149.154.167.51", 443 },
-		{ 3, "174.140.142.6", 443 },
-		{ 4, "149.154.167.91", 443 },
-		{ 5, "149.154.171.5", 443 }
+	{ 1, "149.154.175.50", 443 },
+	{ 2, "149.154.167.51", 443 },
+	{ 3, "174.140.142.6", 443 },
+	{ 4, "149.154.167.91", 443 },
+	{ 5, "149.154.171.5", 443 }
 };
 
 static const BuiltInDc _builtInTestDcs[] = {
-		{ 1, "173.240.5.253", 443 }
+	{ 1, "173.240.5.253", 443 }
 };
 
 inline const BuiltInDc *builtInDcs() {

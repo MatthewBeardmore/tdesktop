@@ -1,6 +1,6 @@
 /*
 This file is part of Telegram Desktop,
-an unofficial desktop messaging app, see https://telegram.org
+the official desktop version of Telegram messaging app, see https://telegram.org
  
 Telegram Desktop is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -13,7 +13,7 @@ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU General Public License for more details.
  
 Full license: https://github.com/telegramdesktop/tdesktop/blob/master/LICENSE
-Copyright (c) 2014 John Preston, https://tdesktop.com
+Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #pragma once
 
@@ -111,7 +111,7 @@ protected:
 	bool posInited;
     QSystemTrayIcon *trayIcon;
     QMenu *trayIconMenu;
-    QImage icon256;
+	QImage icon256, iconbig256;
 	QIcon wndIcon;
 
 	QImage trayImg, trayImgSel;
@@ -129,7 +129,7 @@ private:
 	mutable QTimer psIdleTimer;
 
 	QMenuBar psMainMenu;
-	QAction *psLogout, *psUndo, *psRedo, *psCut, *psCopy, *psPaste, *psDelete, *psSelectAll, *psContacts, *psNewGroup, *psShowTelegram;
+	QAction *psLogout, *psUndo, *psRedo, *psCut, *psCopy, *psPaste, *psDelete, *psSelectAll, *psContacts, *psAddContact, *psNewGroup, *psShowTelegram;
 
 };
 
@@ -200,6 +200,7 @@ QString psCurrentLanguage();
 QString psAppDataPath();
 QString psDownloadPath();
 QString psCurrentExeDirectory(int argc, char *argv[]);
+QString psCurrentExeName(int argc, char *argv[]);
 void psAutoStart(bool start, bool silent = false);
 void psSendToMenu(bool send, bool silent = false);
 
@@ -220,5 +221,13 @@ void psShowInFolder(const QString &name);
 void psStart();
 void psFinish();
 
+void psRegisterCustomScheme();
+
 void psUpdateOverlayed(QWidget *widget);
 QString psConvertFileUrl(const QString &url);
+
+QString strNotificationAboutThemeChange();
+QString strStyleOfInterface();
+QString strNeedToReload();
+QString strNeedToRefresh1();
+QString strNeedToRefresh2();
