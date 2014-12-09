@@ -171,11 +171,11 @@ void MediaView::updateControls() {
 	}
 	QDateTime d(date(_photo ? _photo->date : _doc->date)), dNow(date(unixtime()));
 	if (d.date() == dNow.date()) {
-		_dateText = lang(lng_status_lastseen_today).replace(qsl("{time}"), d.time().toString(qsl("hh:mm")));
+		_dateText = lang(lng_status_lastseen_today).replace(qsl("{time}"), d.time().toString(qsl("h:mm AP")));
 	} else if (d.date().addDays(1) == dNow.date()) {
-		_dateText = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), d.time().toString(qsl("hh:mm")));
+		_dateText = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), d.time().toString(qsl("h:mm AP")));
 	} else {
-		_dateText = lang(lng_status_lastseen_date_time).replace(qsl("{date}"), d.date().toString(qsl("dd.MM.yy"))).replace(qsl("{time}"), d.time().toString(qsl("hh:mm")));
+		_dateText = lang(lng_status_lastseen_date_time).replace(qsl("{date}"), d.date().toString(qsl("dd.MM.yy"))).replace(qsl("{time}"), d.time().toString(qsl("h:mm AP")));
 	}
 	_fromName.setText(st::medviewNameFont, _from->name);
 	updateHeader();

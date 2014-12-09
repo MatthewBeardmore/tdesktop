@@ -230,11 +230,11 @@ namespace App {
 		if (precise) {
 			QDateTime dOnline(date(online)), dNow(date(now));
 			if (dOnline.date() == dNow.date()) {
-				when = lang(lng_status_lastseen_today).replace(qsl("{time}"), dOnline.time().toString(qsl("hh:mm")));
+				when = lang(lng_status_lastseen_today).replace(qsl("{time}"), dOnline.time().toString(qsl("h:mm AP")));
 			} else if (dOnline.date().addDays(1) == dNow.date()) {
-				when = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), dOnline.time().toString(qsl("hh:mm")));
+				when = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), dOnline.time().toString(qsl("h:mm AP")));
 			} else {
-				when = lang(lng_status_lastseen_date_time).replace(qsl("{date}"), dOnline.date().toString(qsl("dd.MM.yy"))).replace(qsl("{time}"), dOnline.time().toString(qsl("hh:mm")));
+				when = lang(lng_status_lastseen_date_time).replace(qsl("{date}"), dOnline.date().toString(qsl("dd.MM.yy"))).replace(qsl("{time}"), dOnline.time().toString(qsl("h:mm AP")));
 			}
 			return lang(lng_status_lastseen).replace(qsl("{when}"), when);
 		}
@@ -254,9 +254,9 @@ namespace App {
 			} else {
 				QDateTime dOnline(date(online)), dNow(date(now));
 				if (dOnline.date() == dNow.date()) {
-					when = lang(lng_status_lastseen_today).replace(qsl("{time}"), dOnline.time().toString(qsl("hh:mm")));
+					when = lang(lng_status_lastseen_today).replace(qsl("{time}"), dOnline.time().toString(qsl("h:mm AP")));
 				} else if (dOnline.date().addDays(1) == dNow.date()) {
-					when = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), dOnline.time().toString(qsl("hh:mm")));
+					when = lang(lng_status_lastseen_yesterday).replace(qsl("{time}"), dOnline.time().toString(qsl("h:mm AP")));
 				} else {
 					when = lang(lng_status_lastseen_date).replace(qsl("{date}"), dOnline.date().toString(qsl("dd.MM.yy")));
 				}

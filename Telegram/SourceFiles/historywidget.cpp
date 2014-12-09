@@ -843,7 +843,7 @@ QString HistoryList::getSelectedText() const {
 	}
 
 	int32 fullSize = 0;
-	QString timeFormat(qsl(", [dd.MM.yy hh:mm]\n"));
+	QString timeFormat(qsl(", [dd.MM.yy h:mm AP]\n"));
 	QMap<int32, QString> texts;
 	for (SelectedItems::const_iterator i = _selected.cbegin(), e = _selected.cend(); i != e; ++i) {
 		HistoryItem *item = i.key();
