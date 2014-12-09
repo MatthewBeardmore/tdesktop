@@ -636,11 +636,7 @@ void EmojiPan::showStart() {
 }
 
 bool EmojiPan::eventFilter(QObject *obj, QEvent *e) {
-	if (e->type() == QEvent::Enter) {
-		otherEnter();
-	} else if (e->type() == QEvent::Leave) {
-		otherLeave();
-	} else if (e->type() == QEvent::MouseButtonPress && static_cast<QMouseEvent*>(e)->button() == Qt::LeftButton) {
+	if (e->type() == QEvent::MouseButtonPress && static_cast<QMouseEvent*>(e)->button() == Qt::LeftButton) {
 		if (isHidden() || _hiding) {
 			otherEnter();
 		} else {
