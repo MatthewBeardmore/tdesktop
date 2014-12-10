@@ -1381,7 +1381,7 @@ void HistoryHider::paintEvent(QPaintEvent *e) {
 			// paint button sep
 			p.fillRect(box.x() + st::btnSelectCancel.width, box.y() + box.height() - st::btnSelectCancel.height, st::lineWidth, st::btnSelectCancel.height, st::btnSelectSep->b);
 
-			p.setPen(st::black->p);
+			p.setPen(st::white->p);
 			toText.drawElided(p, box.left() + (box.width() - toTextWidth) / 2, box.top() + st::boxPadding.top(), toTextWidth + 1);
 		} else {
 			p.setBrush(st::forwardBG->b);

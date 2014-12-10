@@ -118,6 +118,7 @@ void FlatLabel::paintEvent(QPaintEvent *e) {
 	QPainter p(this);
 	p.setOpacity(_opacity);
 	textstyleSet(&_tst);
+	p.setPen(st::white->p);
 	_text.draw(p, 0, 0, width(), _st.align, e->rect().y(), e->rect().bottom());
 	textstyleRestore();
 }

@@ -566,10 +566,10 @@ void MediaView::paintEvent(QPaintEvent *e) {
 		}
 		if (_polaroidOut.intersects(r)) {
 			// polaroid
-			p.fillRect(_polaroidOut.x(), _polaroidOut.y(), _polaroidIn.x() - _polaroidOut.x(), _polaroidOut.height(), st::white->b);
-			p.fillRect(_polaroidIn.x() + _polaroidIn.width(), _polaroidOut.y(), _polaroidOut.x() + _polaroidOut.width() - _polaroidIn.x() - _polaroidIn.width(), _polaroidOut.height(), st::white->b);
-			p.fillRect(_polaroidIn.x(), _polaroidOut.y(), _polaroidIn.width(), _polaroidIn.y() - _polaroidOut.y(), st::white->b);
-			p.fillRect(_polaroidIn.x(), _polaroidIn.y() + _polaroidIn.height(), _polaroidIn.width(), _polaroidOut.y() + _polaroidOut.height() - _polaroidIn.y() - _polaroidIn.height(), st::white->b);
+			p.fillRect(_polaroidOut.x(), _polaroidOut.y(), _polaroidIn.x() - _polaroidOut.x(), _polaroidOut.height(), st::mediaviewBgColor->b);
+			p.fillRect(_polaroidIn.x() + _polaroidIn.width(), _polaroidOut.y(), _polaroidOut.x() + _polaroidOut.width() - _polaroidIn.x() - _polaroidIn.width(), _polaroidOut.height(), st::mediaviewBgColor->b);
+			p.fillRect(_polaroidIn.x(), _polaroidOut.y(), _polaroidIn.width(), _polaroidIn.y() - _polaroidOut.y(), st::mediaviewBgColor->b);
+			p.fillRect(_polaroidIn.x(), _polaroidIn.y() + _polaroidIn.height(), _polaroidIn.width(), _polaroidOut.y() + _polaroidOut.height() - _polaroidIn.y() - _polaroidIn.height(), st::mediaviewBgColor->b);
 		}
 		if (imgRect.intersects(r)) {
 			uint64 ms = 0;

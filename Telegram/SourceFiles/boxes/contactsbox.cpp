@@ -145,7 +145,7 @@ void ContactsInner::paintEvent(QPaintEvent *e) {
 	QPainter p(this);
 
 	_time = unixtime();
-	p.fillRect(r, st::white->b);
+	p.fillRect(r, st::profileBg->b);
 
 	int32 yFrom = r.top();
 	int32 rh = st::profileListPhotoSize + st::profileListPadding.height() * 2;
@@ -511,7 +511,7 @@ void ContactsBox::paintEvent(QPaintEvent *e) {
 			p.fillRect(0, _addContact.height(), _width, st::scrollDef.topsh, st::scrollDef.shColor->b);
 
 			// draw box title / text
-			p.setPen(st::black->p);
+			p.setPen(st::addContactTitleColor->p);
 			p.setFont(st::addContactTitleFont->f);
 			p.drawText(st::addContactTitlePos.x(), st::addContactTitlePos.y() + st::addContactTitleFont->ascent, lang(lng_contacts_header));
 		}

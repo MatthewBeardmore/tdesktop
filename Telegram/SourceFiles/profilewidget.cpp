@@ -410,14 +410,14 @@ void ProfileInner::paintEvent(QPaintEvent *e) {
 			p.setOpacity(1);
 		}
 	}
-	p.setPen(st::black->p);
+	p.setPen(st::profileNameColor->p);
 	_nameText.drawElided(p, _left + st::profilePhotoSize + st::profileNameLeft, top + st::profileNameTop, _width - st::profilePhotoSize - st::profileNameLeft);
 
 	p.setFont(st::profileStatusFont->f);
 	int32 addbyname = 0;
 	if (_peerUser && !_peerUser->username.isEmpty()) {
 		addbyname = st::profileStatusTop + st::linkFont->ascent - (st::profileNameTop + st::profileNameFont->ascent);
-		p.setPen(st::black->p);
+		p.setPen(st::profileNameColor->p);
 		p.drawText(_left + st::profilePhotoSize + st::profileStatusLeft, top + st::profileStatusTop + st::linkFont->ascent, '@' + _peerUser->username);
 	}
 	p.setPen((_peerUser && _peerUser->onlineTill >= l_time ? st::profileOnlineColor : st::profileOfflineColor)->p);
@@ -432,7 +432,7 @@ void ProfileInner::paintEvent(QPaintEvent *e) {
 		p.drawText(_left + st::profilePhotoSize + st::profilePhoneLeft, top + addbyname + st::profilePhoneTop + st::profilePhoneFont->ascent, _errorText);
 	}
 	if (!_phoneText.isEmpty()) {
-		p.setPen(st::black->p);
+		p.setPen(st::profileNameColor->p);
 		p.setFont(st::linkFont->f);
 		p.drawText(_left + st::profilePhotoSize + st::profilePhoneLeft, top + addbyname + st::profilePhoneTop + st::profilePhoneFont->ascent, _phoneText);
 	}
@@ -462,7 +462,7 @@ void ProfileInner::paintEvent(QPaintEvent *e) {
 	top += st::profileHeaderSkip;
 
 	p.setFont(st::linkFont->f);
-	p.setPen(st::black->p);
+	p.setPen(st::profileHeaderColor->p);
 	int oneState = 0; // < 0 - loading, 0 - no media, > 0 - link shown
 	for (int i = 0; i < OverviewCount; ++i) {
 		int32 count = (_hist->_overviewCount[i] > 0) ? _hist->_overviewCount[i] : (_hist->_overviewCount[i] == 0 ? _hist->_overview[i].size() : -1);
@@ -914,7 +914,7 @@ void ProfileWidget::paintEvent(QPaintEvent *e) {
 		p.setOpacity(a_alpha.current());
 		p.drawPixmap(a_coord.current(), 0, _animCache);
 	} else {
-		p.fillRect(e->rect(), st::white->b);
+		p.fillRect(e->rect(), st::profileBg->b);
 	}
 }
 

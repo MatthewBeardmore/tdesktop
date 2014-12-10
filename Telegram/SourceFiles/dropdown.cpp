@@ -543,7 +543,7 @@ void EmojiPan::paintEvent(QPaintEvent *e) {
 	_shadow.paint(p, r);
 
 	if (_cache.isNull()) {
-		p.fillRect(r, st::white->b);
+		p.fillRect(r, st::dropdownBackground->b);
 	} else {
 		p.drawPixmap(r.left(), r.top(), _cache);
 	}

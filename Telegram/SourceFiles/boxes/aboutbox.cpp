@@ -83,7 +83,7 @@ void AboutBox::paintEvent(QPaintEvent *e) {
 
 			p.drawPixmap(QPoint((_width - st::aboutIcon.pxWidth()) / 2, st::aboutIconTop), App::sprite(), st::aboutIcon);
 
-			p.setPen(st::black->p);
+			p.setPen(st::aboutTextColor->p);
 			p.setFont(st::aboutHeaderFont->f);
             p.drawText((_width - (_headerWidth + _subheaderWidth)) / 2, st::aboutHeaderTop + st::aboutHeaderFont->ascent, qsl("Telegram"));
 

@@ -50,7 +50,7 @@ wndMinWidth: 640px;
 wndMinHeight: 480px;
 wndDefWidth: 800px;
 wndDefHeight: 600px;
-wndBG: #FFF;
+wndBG: #333;
 wndShadow: sprite(184px, 21px, 19px, 19px);
 wndShadowShift: 1px;
 
@@ -58,7 +58,7 @@ layerAlpha: 0.3;
 layerBG: #000;
 
 titleBG: #6389a8;
-titleColor: #0f8dcc;//rgb(20, 136, 210);
+titleColor: #6389a8;//rgb(20, 136, 210);
 titleHeight: 39px;
 titleShadowColor: rgba(0, 0, 0, 24);//#ebebeb
 titleShadow: 1px;
@@ -82,8 +82,8 @@ sysBtnDelta: 6px;
 sysUpd: sysButton {
 	size: size(31px, 39px);
 	img: sprite(184px, 1px, 19px, 19px);
-	color: #c4d8e9;
-	overColor: white;
+	color: #324454;
+	overColor: #626C74;
 	duration: 150;
 }
 updateBlinkDuration: 500;
@@ -108,9 +108,9 @@ btnNoColor: #8b8b8b;
 btnNoHover: #777;
 
 btnDefIconed: iconedButton {
-	color: white;
-	bgColor: white;
-	overBgColor: white;
+	color: black;
+	bgColor: black;
+	overBgColor: black;
 	font: font(fsize);
 
 	opacity: 0.78;
@@ -178,15 +178,15 @@ btnDefBack: flatButton(btnDefFlat) {
 linkFont: font(fsize);
 linkOverFont: font(fsize underline);
 btnDefLink: linkButton {
-	color: btnYesColor;
-	overColor: btnYesColor;
+	color: #fff;
+	overColor: #eee;
 	downColor: btnYesHover;
 	font: linkFont;
 	overFont: linkOverFont;
 }
 
 cbDefFlat: flatCheckbox {
-	textColor: #000;
+	textColor: #FFF;
 	bgColor: transparent;
 	disColor: #999;
 
@@ -409,9 +409,9 @@ btnSelectDone: flatButton(btnDefFlat) {
 	overColor: btnYesHover;
 	downColor: btnYesHover;
 
-	bgColor: white;
-	overBgColor: btnBoxWhiteHover;
-	downBgColor: btnBoxWhiteHover;
+	bgColor: #333;
+	overBgColor: #000;
+	downBgColor: #000;
 
 	width: 182px;
 	height: 52px;
@@ -426,10 +426,11 @@ btnSelectDone: flatButton(btnDefFlat) {
 btnSelectCancel: flatButton(btnSelectDone) {
 	width: 181px;
 	color: btnNoColor;
-	overColor: btnNoHover;
-	downColor: btnNoHover;
+	bgColor: #333;
+	overBgColor: #000;
+	downBgColor: #000;
 }
-btnSelectSep: #e0e0e0;
+btnSelectSep: #434343;
 
 countryList: countryList {
 	notFoundColor: #aaa;//rgb(20, 136, 210);
@@ -485,7 +486,7 @@ setStatusLeft: 1px;
 setStatusFont: font(16px);
 setPhotoSize: 120px;
 setHeaderFont: font(20px);
-setHeaderColor: black;
+setHeaderColor: white;
 setHeaderSkip: 59px;
 setHeaderLeft: -1px;
 setHeaderTop: 22px;
@@ -517,11 +518,11 @@ setOverPhotoImg: sprite(122px, 220px, 120px, 120px);
 setPhotoDuration: 150;
 
 setPadding: 26px;
-setBG: #FFF;
-setSh: #000;
+setBG: #333;
+setSh: #fff;
 setTitleFrom: point(20px, 20px);
 setTitleFont: font(24px);
-setTitleColor: #000;
+setTitleColor: #fff;
 setNameInput: flatInput(inpDefFlat) {
 	font: font(fsize);
 	height: 25px;
@@ -611,16 +612,19 @@ dlgMaxWidth: 540px;
 dlgFilter: flatInput(inpDefGray) {
 	font: font(fsize);
 	height: 34px;
-	bgColor: #f2f2f2;
-	phColor: #949494;
-	phFocusColor: #a4a4a4;
+	bgColor: #000;
+	bgActive: #000;
+	phColor: #FFF;
+	phFocusColor: #FFF;
+	textColor: #FFF;
+
 	textMrg: margins(34px, 2px, 5px, 4px);
 	imgRect: sprite(208px, 28px, 24px, 24px);
 	imgPos: point(6px, 5px);
 	width: 240px;
 
 	borderWidth: 2px;
-	borderColor: #f2f2f2;
+	borderColor: #000;
 	borderActive: #80cff9;
 	borderError: #ed8080;
 }
@@ -648,7 +652,7 @@ dlgCheckTop: 4px;
 dlgCheckSkip: 3px;
 
 dlgHistFont: font(fsize);
-dlgNameColor: #000;
+dlgNameColor: #fff;                                        //IMPORTANT
 dlgNameTop: 2px;
 dlgSystemColor: #4981af;
 dlgTextColor: #888888;
@@ -663,17 +667,17 @@ dlgUnreadFont: font(12px bold);
 dlgUnreadPaddingHor: 5px;
 dlgUnreadPaddingVer: 1px;
 dlgUnreadRadius: 2px;
-dlgBG: #FFF;
-dlgHoverBG: #f5f5f5;
+dlgBG: #333;
+dlgHoverBG: #000;
 
-dlgActiveBG: #6a91b1;
+dlgActiveBG: #000;
 dlgActiveUnreadColor: #5b94bf;
 dlgActiveUnreadBG: white;
 dlgActiveColor: white;
 dlgActiveDateColor: #d3e2ee;
 
 topBarHeight: 54px;
-topBarBG: white;
+topBarBG: #2F2F2F;                                               ///IMPORTANT
 topBarDuration: 200;
 topBarForwardPadding: margins(17px, 8px, 40px, 8px);
 topBarForwardAlpha: 0.6;
@@ -681,16 +685,16 @@ topBarForwardImg: sprite(45px, 112px, 9px, 16px);
 topBarBackPadding: margins(15px, 7px, 9px, 7px);
 topBarBackAlpha: 0.8;
 topBarBackImg: sprite(65px, 112px, 9px, 16px);
-topBarBackColor: #005faf;
+topBarBackColor: #fff;
 topBarBackFont: font(16px);
 topBarButton: flatButton(btnDefFlat) {
-	color: btnYesColor;
-	overColor: btnYesHover;
-	downColor: btnYesHover;
+	color: white;
+	overColor: white;
+	downColor: white;
 
-	bgColor: white;
-	overBgColor: white;
-	downBgColor: white;
+	bgColor: #2F2F2F;
+	overBgColor: #1F1F1F;
+	downBgColor: #2F2F2F;
 
 	width: -40px;
 	height: 54px;
@@ -715,7 +719,7 @@ topBarActionButton: flatButton(btnDefNext, btnDefBig) {
 topBarActionSkip: 13px;
 topBarSelectedPos: point(18px, 18px); 
 
-historyBG: #dfe4e8;
+historyBG: #434343;                                             ///IMPORTANT
 
 historyToEnd: iconedButton(btnDefIconed) {
 	bgColor: transparent;
@@ -748,10 +752,10 @@ msgPadding: margins(13px, 7px, 13px, 8px);
 msgMargin: margins(13px, 4px, 53px, 4px);
 msgLnkPadding: 2px; // for media open / save links
 msgBorder: #f0f0f0;
-msgOutBG: #effdde;
-msgInBG: #fff;
-msgOutSelectBG: #b7dbdb;
-msgInSelectBG: #c2dcf2; // #358cd4 with 30% opacity
+msgOutBG: #676767;                                             //IMPORTANT
+msgInBG: #274965;                                              //IMPORTANT
+msgOutSelectBG: #536676;                                       //IMPORTANT
+msgInSelectBG: #536676; // #358cd4 with 30% opacity
 msgOutSelectOverlay: #358cd44c;
 msgInSelectOverlay: #358cd44c;
 msgOutServiceColor: #3a8e26;
@@ -761,8 +765,8 @@ msgInShadow: #748ea229;
 msgOutShadow: #3ac34740;
 msgInSelectShadow: #548dbb29;
 msgOutSelectShadow: #37a78e40;
-msgInDateColor: #a0acb6;
-msgOutDateColor: #6cc264;
+msgInDateColor: #D7DFD6;                                    ///IMPORTANT
+msgOutDateColor: #D7DFD6;
 msgInSelectDateColor: #6a9cc5;
 msgOutSelectDateColor: #50a79c;
 
@@ -774,10 +778,10 @@ msgServiceColor: #FFF;
 msgServicePadding: margins(12px, 3px, 12px, 4px);
 msgServiceMargin: margins(10px, 7px, 80px, 7px);
 
-msgColor: #000;
+msgColor: #fff;
 msgDateColor: #000;
-msgLinkColor: #2a6dc2;
-msgPressedLinkColor: #004bad;
+msgLinkColor: #D2E0F2;
+msgPressedLinkColor: #D2E0F2;
 msgSkip: 40px;
 msgPtr: 8px;
 msgBG: ':/gui/art/bg.png' / 2:':/gui/art/bg_125x.png' / 3:':/gui/art/bg_150x.png' / 4:':/gui/art/bg_200x.png';
@@ -806,14 +810,14 @@ historyPadding: 10px;
 defaultTextStyle: textStyle {
 	lnkFlags: font(fsize);
 	lnkOverFlags: font(fsize underline);
-	lnkColor: btnYesColor;
+	lnkColor: #99CCE6;
 	lnkDownColor: btnYesHover;
 	selectBG: msgInSelectBG;
 	selectOverlay: msgInSelectOverlay;
 	lineHeight: 0px;
 }
 serviceTextStyle: textStyle(defaultTextStyle) {
-	lnkColor: msgServiceColor;
+	lnkColor: #99CCE6;
 	lnkDownColor: msgServiceColor;
 	selectBG: msgServiceSelectBG;
 	selectOverlay: msgServiceSelectBG;
@@ -853,6 +857,7 @@ mediaFont: font(fsize);
 mediaPadding: margins(7px, 6px, 11px, 6px);
 mediaThumbSize: 48px;
 mediaNameTop: 3px;
+mediaNameColor: white;
 mediaDetailsShift: 3px;
 mediaDocOutImg: sprite(6px, 146px, 48px, 48px);
 mediaDocInImg: sprite(56px, 146px, 48px, 48px);
@@ -868,13 +873,13 @@ mediaInSelectColor: msgInSelectDateColor;
 mediaOutSelectColor: msgOutSelectDateColor;
 mediaSaveDelta: 14px; // between bubble and download
 mediaSaveButton: flatButton(btnDefFlat) {
-	color: #507da2;
-	overColor: #507da2;
-	downColor: #507da2;
+	color: #B6C8D8;
+	overColor: #B6C8D8;
+	downColor: #B6C8D8;
 
-	bgColor: white;
-	overBgColor: #f5f8fa;
-	downBgColor: #f5f8fa;
+	bgColor: #666;
+	overBgColor: #666;
+	downBgColor: #333;
 
 	width: -28px;
 	height: 34px;
@@ -889,12 +894,12 @@ mediaSaveButton: flatButton(btnDefFlat) {
 
 sendPadding: 9px;
 btnSend: flatButton(btnDefFlat) {
-	color: btnYesColor;
+	color: white;
 	overColor: btnYesHover;
 	downColor: btnYesHover;
-
-	bgColor: white;
-	overBgColor: btnWhiteHover;
+	
+	bgColor: #3D3D3D;
+	overBgColor: #3D3D3D;
 	downBgColor: btnWhiteHover;
 
 	width: -32px;
@@ -913,17 +918,24 @@ btnAttachDocument: iconedButton(btnDefIconed) {
 	iconPos: point(11px, 11px);
 	downIcon: sprite(218px, 68px, 24px, 24px);
 	downIconPos: point(11px, 12px);
-
-	overBgColor: btnWhiteHover;
+	
+	bgColor: #3D3D3D;
+	overBgColor: #3D3D3D;
+	color: #000;
 	width: 46px;
 	height: 46px;
 }
 btnAttachPhoto: iconedButton(btnAttachDocument) {
+	bgColor: #3D3D3D;
+	overBgColor: #3D3D3D;
+	color: #fff;
 	icon: sprite(113px, 0px, 24px, 24px);
 	downIcon: sprite(113px, 0px, 24px, 24px);
 }
 btnAttachEmoji: iconedButton(btnAttachDocument) {
-	overBgColor: white;
+	bgColor: #3D3D3D;
+	overBgColor: #3D3D3D;
+	color: #fff;
 	icon: sprite(311px, 221px, 20px, 20px);
 	iconPos: point(6px, 13px);
 	downIcon: sprite(311px, 221px, 20px, 20px);
@@ -950,6 +962,8 @@ historyScroll: flatScroll(scrollDef) {
 textRectMargins: margins(-2px, -1px, -2px, -1px);
 taMsgField: flatTextarea(taDefFlat) {
 	font: msgFont;
+	bgColor: #3D3D3D;
+	textColor: white;
 }
 maxFieldHeight: 250px;
 minFieldHeight: 28px;
@@ -964,9 +978,9 @@ unreadBarColor: #538bb4;
 
 searchedBarHeight: unreadBarHeight;
 searchedBarFont: unreadBarFont;
-searchedBarBG: #ebeef1;
+searchedBarBG: #424344;
 searchedBarBorder: unreadBarBorder;
-searchedBarColor: #a2aeb7;
+searchedBarColor: #717A80;
 
 layerSlideDuration: 200;
 layerHideDuration: 200;
@@ -974,7 +988,7 @@ layerPadding: margins(10px, 10px, 10px, 10px);
 
 boxFont: font(16px);
 boxPadding: margins(18px, 18px, 18px, 18px);
-boxBG: white;//rgb(228, 233, 240);
+boxBG: #333;//rgb(228, 233, 240);
 boxGrayTitle: #777;
 
 confirmWidth: 364px;
@@ -986,10 +1000,14 @@ addContactDelta: 14px;
 addContactTitleHeight: 52px;
 addContactTitlePos: point(20px, 15px);
 addContactTitleFont: font(17px);
+addContactTitleColor: white;
 inpAddContact: flatInput(inpDefGray) {
 	height: 42px;
 	textMrg: margins(10px, 5px, 10px, 5px);
 	font: font(15px);
+	bgColor: black;
+	bgActive: black;
+	textColor: white;
 }
 
 btnNewGroup: iconedButton(btnDefIconed) {
@@ -1012,14 +1030,17 @@ btnCancelSearch: iconedButton(btnNewGroup) {
 	downIcon: sprite(188px, 43px, 18px, 18px);
 }
 
-notifyBG: white;
-notifyBorder: #f1f1f1;
-notifyBorderWidth: 1px;
+notifyBG: #333;
+notifyBorder: #333;
+notifyBorderWidth: 0px;
 notifySlowHide: 4000;
 notifyPhotoSize: 62px;
 notifyPhotoPos: point(9px, 9px);
 notifyClosePos: point(1px, 2px);
 notifyClose: iconedButton(btnDefIconed) {
+	bgColor: #333;
+	overBgColor: #333;
+
 	icon: sprite(167px, 130px, 10px, 10px);
 	iconPos: point(10px, 10px);
 	downIcon: sprite(167px, 130px, 10px, 10px);
@@ -1060,16 +1081,18 @@ profilePhoneFont: font(16px);
 profileButtonTop: 18px;
 profileButtonSkip: 10px;
 profileHeaderFont: font(20px);
-profileHeaderColor: black;
+profileHeaderColor: white;
 profileHeaderSkip: 59px;
 profileHeaderLeft: -1px;
 profileHeaderTop: 22px;
+profileBg: #434343;
+profileNameColor: white;
 
 profileListPhotoSize: 46px;
 profileListPadding: size(12px, 6px);
 profileListNameTop: 8px;
 profileListStatusBottom: 6px;
-profileHoverBG: #f5f5f5;
+profileHoverBG: #3B596F;
 profileActiveBG: #6294b9;
 profileSubFont: font(fsize);
 profileCheckRect: sprite(88px, 108px, 24px, 24px);
@@ -1077,12 +1100,13 @@ profileCheckActiveRect: sprite(128px, 108px, 24px, 24px);
 profileCheckDeltaX: 18px;
 profileCheckDeltaY: 1px;
 profileListNameFont: font(fsize semibold);
-profileListNameColor: #000;
+profileListNameColor: #fff;
 profileOnlineColor: titleTypingColor;
 profileOfflineColor: titleStatusColor;
 btnShareContact: flatButton(btnDefNext, btnDefBig) {
 	width: 145px;
 	height: 42px;
+	bgColor: #000;
 
 	textTop: 9px;
 	overTextTop: 9px;
@@ -1182,6 +1206,9 @@ newGroupName: flatInput(inpDefGray) {
 	width: 340px;
 	height: 44px;
 	font: font(15px);
+	bgColor: black;
+	bgActive: #000;
+	textColor: white;
 	textMrg: margins(12px, 5px, 12px, 5px);
 }
 inpCountry: flatInput(contactsFilter) {
@@ -1217,10 +1244,10 @@ contactsClose: flatButton {
 	color: btnYesColor;
 	overColor: btnYesHover;
 	downColor: btnYesHover;
-
-	bgColor: white;
-	overBgColor: white;
-	downBgColor: white;
+	
+	bgColor: #333;
+	overBgColor: #000;
+	downBgColor: #000;
 
 	width: 364px;
 	height: 46px;
@@ -1256,6 +1283,7 @@ aboutVersion: flatLabel(labelDefFlat) {
 }
 aboutVersionTop: 178px;
 aboutTextFont: font(15px);
+aboutTextColor: white;
 aboutTextTop: 221px;
 aboutLabel: flatLabel(labelDefFlat) {
 	font: aboutTextFont;
@@ -1271,6 +1299,8 @@ aboutCloseButton: flatButton(contactsClose) {
 	textTop: 15px;
 	overTextTop: 15px;
 	downTextTop: 16px;
+	bgColor: #333;
+	overBgColor: black;
 }
 btnInfoClose: flatButton(aboutCloseButton) {
 	width: confirmWidth;
@@ -1288,8 +1318,8 @@ connectingPadding: margins(5px, 5px, 5px, 5px);
 dropdownPadding: margins(10px, 10px, 10px, 10px);
 dropdownShadow: sprite(240px, 35px, 6px, 6px);
 dropdownBorder: 1px;
-dropdownBorderColor: #ebebeb;
-dropdownBackground: white;
+dropdownBorderColor: #333;
+dropdownBackground: #333;
 
 dropdownAttachDocument: iconedButton(btnAttachDocument) {
 	iconPos: point(14px, 13px);
@@ -1297,8 +1327,8 @@ dropdownAttachDocument: iconedButton(btnAttachDocument) {
 
 	width: 172px;
 	height: 49px;
-
-	color: black;
+	
+	color: white;
 
 	font: font(16px);
 
@@ -1308,6 +1338,7 @@ dropdownAttachDocument: iconedButton(btnAttachDocument) {
 dropdownAttachPhoto: iconedButton(dropdownAttachDocument) {
 	icon: sprite(113px, 0px, 24px, 24px);
 	downIcon: sprite(113px, 0px, 24px, 24px);
+	color: white;
 }
 dropdownMediaPhotos: iconedButton(dropdownAttachPhoto) {
 	width: 200px;
@@ -1357,7 +1388,7 @@ dpiSlider: slider {
 	width: 260px;
 	bar: sprite(6px, 110px, 9px, 22px);
 }
-dpiActive: black;
+dpiActive: #fff;
 dpiInactive: #999;
 dpiFont1: linkFont;
 dpiFont2: linkFont;
@@ -1458,7 +1489,7 @@ emojiPanFont: font(fsize);
 emojiPanText: #999;
 emojiPanSub: 0px;
 emojiPanDuration: 200;
-emojiPanHover: #f0f0f0;
+emojiPanHover: #484848;
 emojiPanRound: 2px;
 
 medviewNavBarWidth: 132px;
@@ -1473,6 +1504,7 @@ medviewLeft: sprite(340px, 79px, 28px, 48px);
 medviewRight: sprite(368px, 79px, 28px, 48px);
 medviewDeltaFromLastAction: 5px;
 medviewSwipeDistance: 80px;
+mediaviewBgColor: #333;
 
 medviewSaveMsgCheck: sprite(341px, 174px, 22px, 18px);
 medviewSaveMsgFont: font(16px);
@@ -1538,7 +1570,7 @@ medviewCloseOpacity: 0.6;
 medviewNavBGOpacity: 0.4;
 medviewNavOverOpacity: 1;
 medviewCloseOverOpacity: 1;
-medviewNameColor: black;
+medviewNameColor: white;
 medviewDateColor: #999;
 medviewSaveAs: iconedButton(medviewOverview) {
 	bgColor: #38abe6;
@@ -1582,8 +1614,8 @@ macAppHintTop: 8;
 macCautionIconSize: size(16, 16);
 
 btnContext: iconedButton(btnDefIconed) {
-	bgColor: white;
-	overBgColor: btnWhiteHover;
+	bgColor: #333;
+	overBgColor: #000;
 	font: font(14px);
 
 	opacity: 1;
@@ -1592,7 +1624,7 @@ btnContext: iconedButton(btnDefIconed) {
 	width: 172px;
 	height: 36px;
 
-	color: black;
+	color: white;
 
 	textPos: point(16px, 7px);
 	downTextPos: point(16px, 8px);

@@ -137,7 +137,7 @@ void NewGroupInner::paintDialog(QPainter &p, DialogRow *row, bool sel) {
 	p.drawPixmap(left, st::profileListPadding.height(), user->photo->pix(st::profileListPhotoSize));
 
 	if (data->check) {
-		p.setPen(st::white->p);
+		p.setPen(st::profileBg->p);
 	} else {
 		p.setPen(st::profileListNameColor->p);
 	}
@@ -149,7 +149,7 @@ void NewGroupInner::paintDialog(QPainter &p, DialogRow *row, bool sel) {
 
 	p.setFont(st::profileSubFont->f);
 	if (data->check) {
-		p.setPen(st::white->p);
+		p.setPen(st::profileBg->p);
 	} else {
 		p.setPen((user->onlineTill >= _time ? st::profileOnlineColor : st::profileOfflineColor)->p);
 	}
@@ -161,7 +161,7 @@ void NewGroupInner::paintEvent(QPaintEvent *e) {
 	QPainter p(this);
 
 	_time = unixtime();
-	p.fillRect(r, st::white->b);
+	p.fillRect(r, st::profileBg->b);
 
 	int32 yFrom = r.top();
 	int32 rh = st::profileListPhotoSize + st::profileListPadding.height() * 2;
@@ -560,7 +560,7 @@ void NewGroupBox::paintEvent(QPaintEvent *e) {
 			p.fillRect(st::btnSelectCancel.width, size().height() - st::btnSelectCancel.height, st::lineWidth, st::btnSelectCancel.height, st::btnSelectSep->b);
 
 			// draw box title / text
-			p.setPen(st::black->p);
+			p.setPen(st::addContactTitleColor->p);
 			p.setFont(st::addContactTitleFont->f);
 			p.drawText(st::addContactTitlePos.x(), st::addContactTitlePos.y() + st::addContactTitleFont->ascent, lang(lng_create_new_group));
 		}
@@ -706,7 +706,7 @@ void CreateGroupBox::paintEvent(QPaintEvent *e) {
 			p.fillRect(st::btnSelectCancel.width, _height - st::btnSelectCancel.height, st::lineWidth, st::btnSelectCancel.height, st::btnSelectSep->b);
 
 			// draw box title / text
-			p.setPen(st::black->p);
+			p.setPen(st::addContactTitleColor->p);
 			p.setFont(st::addContactTitleFont->f);
 			p.drawText(st::addContactTitlePos.x(), st::addContactTitlePos.y() + st::addContactTitleFont->ascent, lang(lng_create_group_title));
 		}

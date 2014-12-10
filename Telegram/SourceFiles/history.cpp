@@ -2477,7 +2477,7 @@ void HistoryVideo::draw(QPainter &p, const HistoryItem *parent, bool selected, i
 	int32 secondwidth = width - tleft - fullTimeWidth;
 
 	p.setFont(st::mediaFont->f);
-	p.setPen(st::black->c);
+	p.setPen(st::mediaNameColor->c);
 	p.drawText(tleft, st::mediaPadding.top() + st::mediaNameTop + st::mediaFont->ascent, lang(lng_media_video));
 
 	QString statusText;
@@ -2618,7 +2618,7 @@ void HistoryAudio::draw(QPainter &p, const HistoryItem *parent, bool selected, i
 	int32 secondwidth = width - tleft - fullTimeWidth;
 
 	p.setFont(st::mediaFont->f);
-	p.setPen(st::black->c);
+	p.setPen(st::mediaNameColor->c);
 	p.drawText(tleft, st::mediaPadding.top() + st::mediaNameTop + st::mediaFont->ascent, lang(lng_media_audio));
 
 	QString statusText;
@@ -2854,7 +2854,7 @@ void HistoryDocument::draw(QPainter &p, const HistoryItem *parent, bool selected
 	int32 secondwidth = width - tleft - fullTimeWidth;
 
 	p.setFont(st::mediaFont->f);
-	p.setPen(st::black->c);
+	p.setPen(st::mediaNameColor->c);
 	if (twidth < _namew) {
 		p.drawText(tleft, st::mediaPadding.top() + st::mediaNameTop + st::mediaFont->ascent, st::mediaFont->m.elidedText(_name, Qt::ElideRight, twidth));
 	} else {
@@ -3097,7 +3097,7 @@ void HistoryContact::draw(QPainter &p, const HistoryItem *parent, bool selected,
 	int32 secondwidth = width - tleft - fullTimeWidth;
 
 	p.setFont(st::mediaFont->f);
-	p.setPen(st::black->c);
+	p.setPen(st::mediaNameColor->c);
 	if (twidth < phonew) {
 		p.drawText(tleft, st::mediaPadding.top() + st::mediaNameTop + st::mediaFont->ascent, st::mediaFont->m.elidedText(phone, Qt::ElideRight, twidth));
 	} else {

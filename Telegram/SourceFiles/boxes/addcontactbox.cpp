@@ -182,7 +182,7 @@ void AddContactBox::paintEvent(QPaintEvent *e) {
 			p.fillRect(st::btnSelectCancel.width, size().height() - st::btnSelectCancel.height, st::lineWidth, st::btnSelectCancel.height, st::btnSelectSep->b);
 
 			// draw box title / text
-			p.setPen(st::black->p);
+			p.setPen(st::addContactTitleColor->p);
 			p.setFont(st::addContactTitleFont->f);
 			if (_retryButton.isHidden()) {
 				p.drawText(st::addContactTitlePos.x(), st::addContactTitlePos.y() + st::addContactTitleFont->ascent, _boxTitle);

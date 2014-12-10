@@ -312,6 +312,7 @@ void SettingsInner::paintEvent(QPaintEvent *e) {
 		// profile
 		top += st::setTop;
 
+		p.setPen(st::setTitleColor->p);
 		_nameText.drawElided(p, _uploadPhoto.x() + st::setNameLeft, top + st::setNameTop, _uploadPhoto.width() - st::setNameLeft);
 		if (!_cancelPhoto.isHidden()) {
 			p.setFont(st::linkFont->f);
@@ -352,7 +353,7 @@ void SettingsInner::paintEvent(QPaintEvent *e) {
 		top += st::setHeaderSkip;
 
 		p.setFont(st::linkFont->f);
-		p.setPen(st::black->p);
+		p.setPen(st::setTitleColor->p);
 		p.drawText(_left, top + st::linkFont->ascent, lang(lng_settings_phone_number));
 		p.drawText(_left + _phoneLeft, top + st::linkFont->ascent, _phoneText);
 		top += st::linkFont->height + st::setLittleSkip;
@@ -453,7 +454,7 @@ void SettingsInner::paintEvent(QPaintEvent *e) {
 		if (!cAskDownloadPath()) {
 			top += st::setLittleSkip;
 			p.setFont(st::linkFont->f);
-			p.setPen(st::black->p);
+			p.setPen(st::setTitleColor->p);
 			p.drawText(_left + st::setVersionLeft, top + st::linkFont->ascent, lang(lng_download_path_label));
 			if (cDownloadPath() == qsl("tmp")) {
 				QString clearText;
@@ -485,7 +486,7 @@ void SettingsInner::paintEvent(QPaintEvent *e) {
 			localImagesText = lang((cnt > 1) ? lng_settings_images_cached : lng_settings_image_cached).replace(qsl("{count}"), QString::number(cnt)).replace(qsl("{size}"), formatSizeText(Local::storageFilesSize()));
 		}
 		p.setFont(st::linkFont->f);
-		p.setPen(st::black->p);
+		p.setPen(st::setTitleColor->p);
 		p.drawText(_left + st::setHeaderLeft, top + st::linkFont->ascent, localImagesText);
 		QString clearText;
 		int32 clearWidth = 0;
@@ -507,7 +508,7 @@ void SettingsInner::paintEvent(QPaintEvent *e) {
 	top += st::setHeaderSkip;
 	
 	p.setFont(st::linkFont->f);
-	p.setPen(st::black->p);
+	p.setPen(st::setTitleColor->p);
 	p.drawText(_left + st::setHeaderLeft, _connectionType.y() + st::linkFont->ascent, _connectionTypeText);
 
 	if (self() && _resetDone) {

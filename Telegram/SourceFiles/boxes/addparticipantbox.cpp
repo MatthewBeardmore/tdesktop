@@ -175,7 +175,7 @@ void AddParticipantInner::paintEvent(QPaintEvent *e) {
 	QPainter p(this);
 
 	_time = unixtime();
-	p.fillRect(r, st::white->b);
+	p.fillRect(r, st::profileBg->b);
 
 	int32 yFrom = r.top();
 	int32 rh = st::profileListPhotoSize + st::profileListPadding.height() * 2;
@@ -614,7 +614,7 @@ void AddParticipantBox::paintEvent(QPaintEvent *e) {
 			p.fillRect(st::btnSelectCancel.width, size().height() - st::btnSelectCancel.height, st::lineWidth, st::btnSelectCancel.height, st::btnSelectSep->b);
 
 			// draw box title / text
-			p.setPen(st::black->p);
+			p.setPen(st::addContactTitleColor->p);
 			p.setFont(st::addContactTitleFont->f);
 			p.drawText(st::addContactTitlePos.x(), st::addContactTitlePos.y() + st::addContactTitleFont->ascent, lang(lng_profile_add_participant));
 		}
