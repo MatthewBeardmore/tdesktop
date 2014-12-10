@@ -227,7 +227,7 @@ void DragArea::paintEvent(QPaintEvent *e) {
 	// draw shadow
 	_shadow.paint(p, r);
 
-	p.fillRect(r, st::white->b);
+	p.fillRect(r, st::dragBgColor->b);
 
 	p.setPen(a_color.current());
 

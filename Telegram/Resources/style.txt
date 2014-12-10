@@ -1358,6 +1358,7 @@ dropdownMediaAudios: iconedButton(dropdownMediaDocuments) {
 dragFont: font(28px semibold);
 dragSubfont: font(20px semibold);
 dragColor: #777;
+dragBgColor: #555;
 dragDropColor: btnYesColor;
 
 dragMargin: margins(0px, 10px, 0px, 10px);
