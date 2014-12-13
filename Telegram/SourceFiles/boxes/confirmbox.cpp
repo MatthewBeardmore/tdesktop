@@ -177,7 +177,7 @@ void ConfirmBox::paintEvent(QPaintEvent *e) {
 
 			// draw box title / text
 			p.setFont(st::boxFont->f);
-			p.setPen(st::black->p);
+			p.setPen(st::boxTextColor->p);
 			_text.draw(p, st::boxPadding.left(), st::boxPadding.top(), _textWidth, (_text.maxWidth() < _width) ? style::al_center : style::al_left);
 		}
 	} else {

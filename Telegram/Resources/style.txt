@@ -37,29 +37,30 @@ transparent: rgba(255, 255, 255, 0);
 white: rgba(255, 255, 255, 255);
 black: rgba(0, 0, 0, 255);
 
-color1: #c03d33; // red
-color2: #4fad2d; // green
-color3: #d09306; // yellow
-color4: #348cd4; // blue
-color5: #8544d6; // purple
-color6: #cd4073; // pink
-color7: #2996ad; // sea
-color8: #ce671b; // orange
+//Contact name colors
+color1: #F44336; // red     X
+color2: #66BB6A; // green
+color3: #FFF59D; // yellow  X
+color4: #90CAF9; // blue
+color5: #9575CD; // purple
+color6: #F48FB1; // pink
+color7: #B2EBF2; // sea 
+color8: #FFCC80; // orange
 
 wndMinWidth: 380px;
 wideModeWidth: 640px;
 wndMinHeight: 480px;
 wndDefWidth: 800px;
 wndDefHeight: 600px;
-wndBG: #333;
+wndBG: #292D38;
 wndShadow: sprite(184px, 21px, 19px, 19px);
 wndShadowShift: 1px;
 
 layerAlpha: 0.3;
 layerBG: #000;
 
-titleBG: #6389a8;
-titleColor: #6389a8;//rgb(20, 136, 210);
+titleBG: #3B5265;                                               //Title bar
+titleColor: #3B5265;//rgb(20, 136, 210);
 titleHeight: 39px;
 titleShadowColor: rgba(0, 0, 0, 24);//#ebebeb
 titleShadow: 1px;
@@ -83,8 +84,8 @@ sysBtnDelta: 6px;
 sysUpd: sysButton {
 	size: size(31px, 39px);
 	img: sprite(184px, 1px, 19px, 19px);
-	color: #324454;
-	overColor: #626C74;
+	color: #3B5265;                                 //Color behind minimize, maximize, close
+	overColor: #4F6374;
 	duration: 150;
 }
 updateBlinkDuration: 500;
@@ -117,14 +118,14 @@ btnDefIconed: iconedButton {
 	cursor: cursor(pointer);
 }
 
-titleBackButton: iconedButton(btnDefIconed) {
+titleBackButton: iconedButton(btnDefIconed) { //Conversations List button
 	icon: sprite(133px, 197px, 13px, 20px);
 	iconPos: point(5px, 9px);
 	downIcon: sprite(133px, 197px, 13px, 20px);
 	downIconPos: point(5px, 10px);
 
 	bgColor: #d4e3ef;
-	overBgColor: black;
+	overBgColor: #FFF;
 
 	width: -30px;
 	height: 39px;
@@ -269,7 +270,7 @@ inpDefGray: flatInput(inpDefFlat) {
 	bgColor: #f2f2f2;
 	borderWidth: 2px;
 	borderColor: #f2f2f2;
-	borderActive: #80cff9;
+	borderActive: #40687C;
 	borderError: #ed8080;
 	phColor: #808080;
 }
@@ -425,14 +426,14 @@ inpIntroName: flatInput(inpIntroPhone) {
 
 introSelectDelta: 30px;
 introSelectMaxHeight: 550px;
-btnSelectDone: flatButton(btnDefFlat) {
+btnSelectDone: flatButton(btnDefFlat) { //New group next button
 	color: btnYesColor;
 	overColor: btnYesHover;
 	downColor: btnYesHover;
-
-	bgColor: #333;
-	overBgColor: #000;
-	downBgColor: #000;
+	
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 
 	width: 182px;
 	height: 52px;
@@ -444,12 +445,13 @@ btnSelectDone: flatButton(btnDefFlat) {
 	font: font(17px);
 	overFont: font(17px);
 }
-btnSelectCancel: flatButton(btnSelectDone) {
+btnSelectCancel: flatButton(btnSelectDone) {  //New Group Cancel button
 	width: 181px;
 	color: btnNoColor;
-	bgColor: #333;
-	overBgColor: #000;
-	downBgColor: #000;
+
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 }
 btnSelectSep: #434343;
 
@@ -539,7 +541,7 @@ setOverPhotoImg: sprite(122px, 220px, 120px, 120px);
 setPhotoDuration: 150;
 
 setPadding: 26px;
-setBG: #333;
+setBG: #1F232C;                                      //Settings background
 setSh: #fff;
 setTitleFrom: point(20px, 20px);
 setTitleFont: font(24px);
@@ -565,6 +567,9 @@ btnSetUpload: flatButton(btnDefNext, btnDefBig) {
 	textTop: 9px;
 	overTextTop: 9px;
 	downTextTop: 10px;
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 }
 
 btnEditSave: flatButton(btnSetUpload) {
@@ -630,11 +635,11 @@ dlgShadow: 1px;
 dlgMinWidth: 260px;
 dlgRichMinWidth: 150px;
 dlgMaxWidth: 540px;
-dlgFilter: flatInput(inpDefGray) {
+dlgFilter: flatInput(inpDefGray) { //Search bar main page
 	font: font(fsize);
 	height: 34px;
-	bgColor: #000;
-	bgActive: #000;
+	bgColor: #292D38;
+	bgActive: #292D38;
 	phColor: #FFF;
 	phFocusColor: #FFF;
 	textColor: #FFF;
@@ -645,8 +650,8 @@ dlgFilter: flatInput(inpDefGray) {
 	width: 240px;
 
 	borderWidth: 2px;
-	borderColor: #000;
-	borderActive: #80cff9;
+	borderColor: #292D38;
+	borderActive: #40687C;
 	borderError: #ed8080;
 }
 dlgScroll: flatScroll(scrollDef) {
@@ -673,7 +678,7 @@ dlgCheckTop: 4px;
 dlgCheckSkip: 3px;
 
 dlgHistFont: font(fsize);
-dlgNameColor: #fff;                                        //IMPORTANT
+dlgNameColor: #fff;                                        //IMPORTANT color of text on sidebar
 dlgNameTop: 2px;
 dlgSystemColor: #4981af;
 dlgTextColor: #888888;
@@ -688,17 +693,17 @@ dlgUnreadFont: font(12px bold);
 dlgUnreadPaddingHor: 5px;
 dlgUnreadPaddingVer: 1px;
 dlgUnreadRadius: 2px;
-dlgBG: #333;
-dlgHoverBG: #000;
+dlgBG: #292D38;                                                    //IMPORTANT background of contacts list
+dlgHoverBG: #33536B;
 
-dlgActiveBG: #000;
+dlgActiveBG: #406886;
 dlgActiveUnreadColor: #5b94bf;
 dlgActiveUnreadBG: white;
 dlgActiveColor: white;
 dlgActiveDateColor: #d3e2ee;
 
 topBarHeight: 54px;
-topBarBG: #2F2F2F;                                               ///IMPORTANT
+topBarBG: #292D38;                                               ///IMPORTANT - top bar of chat
 topBarDuration: 200;
 topBarForwardPadding: margins(17px, 8px, 40px, 8px);
 topBarForwardAlpha: 0.6;
@@ -708,14 +713,14 @@ topBarBackAlpha: 0.8;
 topBarBackImg: sprite(65px, 112px, 9px, 16px);
 topBarBackColor: #fff;
 topBarBackFont: font(16px);
-topBarButton: flatButton(btnDefFlat) {
+topBarButton: flatButton(btnDefFlat) {  //controls Edit, Leave, Add Contact
 	color: white;
 	overColor: white;
 	downColor: white;
 
-	bgColor: #2F2F2F;
-	overBgColor: #1F1F1F;
-	downBgColor: #2F2F2F;
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 
 	width: -40px;
 	height: 54px;
@@ -740,7 +745,7 @@ topBarActionButton: flatButton(btnDefNext, btnDefBig) {
 topBarActionSkip: 13px;
 topBarSelectedPos: point(18px, 18px); 
 
-historyBG: #434343;                                             ///IMPORTANT
+historyBG: #1F232C;                                             ///IMPORTANT  background of chat panel
 
 historyToEnd: iconedButton(btnDefIconed) {
 	bgColor: transparent;
@@ -773,8 +778,8 @@ msgPadding: margins(13px, 7px, 13px, 8px);
 msgMargin: margins(13px, 4px, 53px, 4px);
 msgLnkPadding: 2px; // for media open / save links
 msgBorder: #f0f0f0;
-msgOutBG: #676767;                                             //IMPORTANT
-msgInBG: #274965;                                              //IMPORTANT
+msgOutBG: #2A303E;                                             //IMPORTANT
+msgInBG: #406886;                                              //IMPORTANT chat message background
 msgOutSelectBG: #536676;                                       //IMPORTANT
 msgInSelectBG: #536676; // #358cd4 with 30% opacity
 msgOutSelectOverlay: #358cd44c;
@@ -782,8 +787,8 @@ msgInSelectOverlay: #358cd44c;
 msgOutServiceColor: #3a8e26;
 msgInServiceColor: #0e7acd;
 msgShadow: 2px;
-msgInShadow: #748ea229;
-msgOutShadow: #3ac34740;
+msgInShadow: #406886;
+msgOutShadow: #2A303E;
 msgInSelectShadow: #548dbb29;
 msgOutSelectShadow: #37a78e40;
 msgInDateColor: #D7DFD6;                                    ///IMPORTANT
@@ -893,14 +898,14 @@ mediaOutColor: msgOutDateColor;
 mediaInSelectColor: msgInSelectDateColor;
 mediaOutSelectColor: msgOutSelectDateColor;
 mediaSaveDelta: 14px; // between bubble and download
-mediaSaveButton: flatButton(btnDefFlat) {
-	color: #B6C8D8;
-	overColor: #B6C8D8;
-	downColor: #B6C8D8;
+mediaSaveButton: flatButton(btnDefFlat) {            //Color of download button
+	color: white;
+	overColor: white;
+	downColor: white;
 
-	bgColor: #666;
-	overBgColor: #666;
-	downBgColor: #333;
+	bgColor: #406886;
+	overBgColor: #537792;
+	downBgColor: #537792;
 
 	width: -28px;
 	height: 34px;
@@ -919,8 +924,8 @@ btnSend: flatButton(btnDefFlat) {
 	overColor: btnYesHover;
 	downColor: btnYesHover;
 	
-	bgColor: #3D3D3D;
-	overBgColor: #3D3D3D;
+	bgColor: #282C37;
+	overBgColor: #282C37;
 	downBgColor: btnWhiteHover;
 
 	width: -32px;
@@ -940,22 +945,22 @@ btnAttachDocument: iconedButton(btnDefIconed) {
 	downIcon: sprite(218px, 68px, 24px, 24px);
 	downIconPos: point(11px, 12px);
 	
-	bgColor: #3D3D3D;
-	overBgColor: #3D3D3D;
+	bgColor: #282C37;
+	overBgColor: #282C37;
 	color: #000;
 	width: 46px;
 	height: 46px;
 }
 btnAttachPhoto: iconedButton(btnAttachDocument) {
-	bgColor: #3D3D3D;
-	overBgColor: #3D3D3D;
+	bgColor: #282C37;
+	overBgColor: #282C37;
 	color: #fff;
 	icon: sprite(113px, 0px, 24px, 24px);
 	downIcon: sprite(113px, 0px, 24px, 24px);
 }
 btnAttachEmoji: iconedButton(btnAttachDocument) {
-	bgColor: #3D3D3D;
-	overBgColor: #3D3D3D;
+	bgColor: #282C37;
+	overBgColor: #282C37;
 	color: #fff;
 	icon: sprite(311px, 221px, 20px, 20px);
 	iconPos: point(6px, 13px);
@@ -983,7 +988,7 @@ historyScroll: flatScroll(scrollDef) {
 textRectMargins: margins(-2px, -1px, -2px, -1px);
 taMsgField: flatTextarea(taDefFlat) {
 	font: msgFont;
-	bgColor: #3D3D3D;
+	bgColor: #282C37;
 	textColor: white;
 }
 maxFieldHeight: 250px;
@@ -993,7 +998,7 @@ newMsgSound: ':/gui/art/newmsg.wav';
 
 unreadBarHeight: 32px;
 unreadBarFont: font(fsize semibold);
-unreadBarBG: #fcfbfa;
+unreadBarBG: black;                           //Color for {0} unread notifications bar
 unreadBarBorder: titleShadowColor;
 unreadBarColor: #538bb4;
 
@@ -1008,8 +1013,9 @@ layerHideDuration: 200;
 layerPadding: margins(10px, 10px, 10px, 10px);
 
 boxFont: font(16px);
+boxTextColor: white;
 boxPadding: margins(18px, 18px, 18px, 18px);
-boxBG: #333;//rgb(228, 233, 240);
+boxBG: #292D38;//rgb(228, 233, 240);
 boxGrayTitle: #777;
 
 confirmWidth: 364px;
@@ -1026,9 +1032,10 @@ inpAddContact: flatInput(inpDefGray) {
 	height: 42px;
 	textMrg: margins(10px, 5px, 10px, 5px);
 	font: font(15px);
-	bgColor: black;
-	bgActive: black;
+	bgColor: #292D38;
+	bgActive: #292D38;
 	textColor: white;
+	borderColor: #1F232C;
 }
 
 btnNewGroup: iconedButton(btnDefIconed) {
@@ -1106,7 +1113,7 @@ profileHeaderColor: white;
 profileHeaderSkip: 59px;
 profileHeaderLeft: -1px;
 profileHeaderTop: 22px;
-profileBg: #434343;
+profileBg: #1F232C;                   //Important background of group info panel
 profileNameColor: white;
 
 profileListPhotoSize: 46px;
@@ -1124,10 +1131,12 @@ profileListNameFont: font(fsize semibold);
 profileListNameColor: #fff;
 profileOnlineColor: titleTypingColor;
 profileOfflineColor: titleStatusColor;
-btnShareContact: flatButton(btnDefNext, btnDefBig) {
+btnShareContact: flatButton(btnDefNext, btnDefBig) {  //Set Photo
 	width: 145px;
 	height: 42px;
-	bgColor: #000;
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 
 	textTop: 9px;
 	overTextTop: 9px;
@@ -1223,12 +1232,13 @@ contactsFilter: flatInput(dlgFilter) {
 	textMrg: margins(34px, 3px, 5px, 4px);
 	imgPos: point(6px, 7px);
 }
+newGroupBoxBG: #292D38;
 newGroupName: flatInput(inpDefGray) {
 	width: 340px;
 	height: 44px;
 	font: font(15px);
-	bgColor: black;
-	bgActive: #000;
+	bgColor: #292D38;
+	bgActive: #292D38;
 	textColor: white;
 	textMrg: margins(12px, 5px, 12px, 5px);
 }
@@ -1261,14 +1271,14 @@ inpConnectionPassword: flatInput(inpConnectionHost) {
 	width: 155px;
 }
 
-contactsClose: flatButton {
+contactsClose: flatButton { //Contacts cancel button
 	color: btnYesColor;
 	overColor: btnYesHover;
 	downColor: btnYesHover;
 	
-	bgColor: #333;
-	overBgColor: #000;
-	downBgColor: #000;
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 
 	width: 364px;
 	height: 46px;
@@ -1290,6 +1300,7 @@ contactsAdd: flatButton(topBarButton) {
 	downTextTop: 19px;
 }
 
+aboutBoxBg: #1F232C;
 aboutIcon: sprite(2px, 2px, 104px, 104px);
 aboutIconTop: 28px;
 aboutWidth: 448px;
@@ -1314,14 +1325,16 @@ aboutLabel: flatLabel(labelDefFlat) {
 aboutTextStyle: textStyle(defaultTextStyle) {
 	lineHeight: 24px;
 }
-aboutCloseButton: flatButton(contactsClose) {
+aboutCloseButton: flatButton(contactsClose) {       //about done button
 	width: aboutWidth;
 	height: 52px;
 	textTop: 15px;
 	overTextTop: 15px;
 	downTextTop: 16px;
-	bgColor: #333;
-	overBgColor: black;
+	
+	bgColor: #292D38;
+	overBgColor: #3E424C;
+	downBgColor: #3E424C;
 }
 btnInfoClose: flatButton(aboutCloseButton) {
 	width: confirmWidth;
@@ -1332,13 +1345,13 @@ emojiReplaceWidth: 56px;
 emojiReplaceHeight: 56px;
 emojiReplaceInnerHeight: 38px;
 
-connectingBG: #fffe;
-connectingColor: #777;
+connectingBG: #292D38;
+connectingColor: white;
 connectingPadding: margins(5px, 5px, 5px, 5px);
 
 dropdownPadding: margins(10px, 10px, 10px, 10px);
 dropdownShadow: sprite(240px, 35px, 6px, 6px);
-dropdownBorder: 1px;
+dropdownBorder: 0px;
 dropdownBorderColor: #333;
 dropdownBackground: #333;
 

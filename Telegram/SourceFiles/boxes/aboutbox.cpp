@@ -79,7 +79,7 @@ void AboutBox::paintEvent(QPaintEvent *e) {
 	if (_cache.isNull()) {
 		if (!_hiding || a_opacity.current() > 0.01) {
 			// fill bg
-			p.fillRect(0, 0, _width, _height, st::boxBG->b);
+			p.fillRect(0, 0, _width, _height, st::aboutBoxBg->b);
 
 			p.drawPixmap(QPoint((_width - st::aboutIcon.pxWidth()) / 2, st::aboutIconTop), App::sprite(), st::aboutIcon);
 
