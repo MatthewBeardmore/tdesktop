@@ -17,6 +17,7 @@ Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "lang.h"
+#include <algorithm>
 
 #include "newgroupbox.h"
 #include "mainwidget.h"
@@ -298,10 +299,15 @@ void NewGroupInner::updateFilter(QString filter) {
 			resize(width(), _contacts->list.count * rh);
 			if (_contacts->list.count) {
 				if (!_addContactLnk.isHidden()) _addContactLnk.hide();
-				resize(width(), _contacts->list.count * rh);
+
+				if (parentWidget())
+					resize(width(), std::max(parentWidget()->height(), _contacts->list.count * rh));
+				else
+					resize(width(), _contacts->list.count * rh);
+
 				_sel = _contacts->list.begin;
 			} else {
-				resize(width(), st::noContactsHeight);
+				resize(width(), parentWidget()->height());
 				if (cContactsReceived()) {
 					if (_addContactLnk.isHidden()) _addContactLnk.show();
 				} else {
@@ -353,9 +359,12 @@ void NewGroupInner::updateFilter(QString filter) {
 			_filteredSel = _filtered.isEmpty() ? -1 : 0;
 
 			if (!_filtered.isEmpty()) {
-				resize(width(), _filtered.size() * rh);
+				if (parentWidget())
+					resize(width(), std::max(parentWidget()->height(), _filtered.size() * rh));
+				else
+					resize(width(), _filtered.size() * rh);
 			} else {
-				resize(width(), st::noContactsHeight);
+				resize(width(), parentWidget()->height());
 			}
 		}
 		if (parentWidget()) parentWidget()->update();
@@ -550,7 +559,7 @@ void NewGroupBox::paintEvent(QPaintEvent *e) {
 	if (_cache.isNull()) {
 		if (!_hiding || a_opacity.current() > 0.01) {
 			// fill bg
-			p.fillRect(QRect(QPoint(0, 0), size()), st::boxBG->b);
+			p.fillRect(QRect(QPoint(0, 0), size()), st::newGroupBoxBG->b);
 
 			// paint shadows
 			p.fillRect(0, st::participantFilter.height, _width, st::scrollDef.topsh, st::scrollDef.shColor->b);
@@ -696,7 +705,7 @@ void CreateGroupBox::paintEvent(QPaintEvent *e) {
 	if (_cache.isNull()) {
 		if (!_hiding || a_opacity.current() > 0.01) {
 			// fill bg
-			p.fillRect(QRect(QPoint(0, 0), size()), st::boxBG->b);
+			p.fillRect(QRect(QPoint(0, 0), size()), st::newGroupBoxBG->b);
 
 			// paint shadows
 			p.fillRect(0, st::addContactTitleHeight, _width, st::scrollDef.topsh, st::scrollDef.shColor->b);

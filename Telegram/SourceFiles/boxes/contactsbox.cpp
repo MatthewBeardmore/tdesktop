@@ -17,6 +17,7 @@ Copyright (c) 2014 John Preston, https://desktop.telegram.org
 */
 #include "stdafx.h"
 #include "lang.h"
+#include <algorithm>
 
 #include "addcontactbox.h"
 #include "contactsbox.h"
@@ -271,10 +272,15 @@ void ContactsInner::updateFilter(QString filter) {
 		if (_filter.isEmpty()) {
 			if (_contacts->list.count) {
 				if (!_addContactLnk.isHidden()) _addContactLnk.hide();
-				resize(width(), _contacts->list.count * rh + st::contactsClose.height);
+
+				if (parentWidget())
+					resize(width(), std::max(parentWidget()->height(), _contacts->list.count * rh + (int)st::contactsClose.height));
+				else
+					resize(width(), _contacts->list.count * rh + st::contactsClose.height);
+
 				_sel = _contacts->list.begin;
 			} else {
-				resize(width(), st::noContactsHeight);
+				resize(width(), parentWidget()->height());
 				if (cContactsReceived()) {
 					if (_addContactLnk.isHidden()) _addContactLnk.show();
 				} else {
@@ -326,9 +332,12 @@ void ContactsInner::updateFilter(QString filter) {
 			_filteredSel = _filtered.isEmpty() ? -1 : 0;
 
 			if (!_filtered.isEmpty()) {
-				resize(width(), _filtered.size() * rh + st::contactsClose.height);
+				if (parentWidget())
+					resize(width(), std::max(parentWidget()->height(), _filtered.size() * rh + (int)st::contactsClose.height));
+				else
+					resize(width(), _filtered.size() * rh + st::contactsClose.height);
 			} else {
-				resize(width(), st::noContactsHeight);
+				resize(width(), parentWidget()->height());
 			}
 		}
 		if (parentWidget()) parentWidget()->update();

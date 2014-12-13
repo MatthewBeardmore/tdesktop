@@ -1582,7 +1582,7 @@ void DialogsWidget::resizeEvent(QResizeEvent *e) {
 	_addContact.move(w - _addContact.width() - st::dlgPaddingHor, _filter.y());
 	_cancelSearch.move(w - _cancelSearch.width() - st::dlgPaddingHor, _filter.y());
 	scroll.move(0, _filter.height() + 2 * st::dlgFilterPadding);
-	scroll.resize(w, height() - _filter.y() - _filter.height() - st::dlgFilterPadding - st::dlgPaddingVer);
+	scroll.resize(w, height() - _filter.y() - _filter.height() - st::dlgFilterPadding);
 	list.resize(w, list.height());
 	onListScroll();
 }
