@@ -2592,7 +2592,20 @@ DragState HistoryWidget::getDragState(const QMimeData *d) {
 
 	bool allAreSmallImages = true;
 	for (QList<QUrl>::const_iterator i = urls.cbegin(), en = urls.cend(); i != en; ++i) {
-		if (!i->isLocalFile()) return DragStateNone;
+		if (!i->isLocalFile())
+		{
+			QString url(i->url());
+			bool foundImageExtension = false;
+			for (QStringList::const_iterator j = imgExtensions.cbegin(), end = imgExtensions.cend(); j != end; ++j) {
+				if (url.right(j->size()).toLower() == (*j).toLower()) {
+					return DragStatePhotoFiles;
+				}
+			}
+
+			//Don't upload anything and everything, only photos
+			//return DragStateFiles;
+			return DragStateNone;
+		}
 
 		QString file(i->toLocalFile());
 		if (file.startsWith(qsl("/.file/id="))) file = psConvertFileUrl(file);
@@ -2602,7 +2615,7 @@ DragState HistoryWidget::getDragState(const QMimeData *d) {
 			return DragStateNone;
 		}
 		if (allAreSmallImages) {
-			if (s >= MaxUploadPhotoSize) {https://i.imgur.com/iGxK5dN.jpg
+			if (s >= MaxUploadPhotoSize) {
 				allAreSmallImages = false;
 			} else {
 				bool foundImageExtension = false;
@@ -2658,8 +2671,6 @@ void HistoryWidget::onDocumentDrop(QDropEvent *e) {
 	if (!hist) return;
 
 	QStringList files = getMediasFromMime(e->mimeData());
-	if (files.isEmpty()) return;
-
 	uploadMedias(files, ToPrepareDocument);
 }
 
@@ -3458,29 +3469,53 @@ QStringList HistoryWidget::getMediasFromMime(const QMimeData *d) {
 
 	files.reserve(urls.size());
 	for (QList<QUrl>::const_iterator i = urls.cbegin(), en = urls.cend(); i != en; ++i) {
-		if (!i->isLocalFile()) return QStringList();
+		if (!i->isLocalFile())
+		{
+			QNetworkAccessManager m_NetworkMngr;
+			QNetworkReply *reply = m_NetworkMngr.get(QNetworkRequest(i->url()));
+			QEventLoop loop;
+			QObject::connect(reply, SIGNAL(finished()), &loop, SLOT(quit()));
+			loop.exec();
+			QUrl aUrl(i->url());
+			QFileInfo fileInfo = aUrl.path();
 
-		QString file(i->toLocalFile());
-		if (file.startsWith(qsl("/.file/id="))) file = psConvertFileUrl(file);
+			QDir temppath(cWorkingDir() + "tdata/tdummy/");
+			QString path = temppath.absolutePath() + "\\" + fileInfo.fileName();
 
-		QFileInfo info(file);
-		uint64 s = info.size();
-		if (s >= MaxUploadDocumentSize) {
-			if (s >= MaxUploadPhotoSize) {
-				continue;
-			} else {
-				bool foundGoodExtension = false;
-				for (QStringList::const_iterator j = photoExtensions.cbegin(), end = photoExtensions.cend(); j != end; ++j) {
-					if (file.right(j->size()).toLower() == (*j).toLower()) {
-						foundGoodExtension = true;
-					}
-				}
-				if (!foundGoodExtension) {
+			QFile file(path);
+			file.open(QIODevice::WriteOnly);
+			file.write(reply->readAll());
+			file.close();
+
+			delete reply;
+
+			files.push_back(path);
+		}
+		else
+		{
+			QString file(i->toLocalFile());
+			if (file.startsWith(qsl("/.file/id="))) file = psConvertFileUrl(file);
+
+			QFileInfo info(file);
+			uint64 s = info.size();
+			if (s >= MaxUploadDocumentSize) {
+				if (s >= MaxUploadPhotoSize) {
 					continue;
 				}
+				else {
+					bool foundGoodExtension = false;
+					for (QStringList::const_iterator j = photoExtensions.cbegin(), end = photoExtensions.cend(); j != end; ++j) {
+						if (file.right(j->size()).toLower() == (*j).toLower()) {
+							foundGoodExtension = true;
+						}
+					}
+					if (!foundGoodExtension) {
+						continue;
+					}
+				}
 			}
+			files.push_back(file);
 		}
-		files.push_back(file);
 	}
 	return files;
 }
